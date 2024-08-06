@@ -1,21 +1,45 @@
 #include <iostream>
 #include <assert.h>
 
-int printColorMap() {
-    const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
-    const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
-    int i = 0, j = 0;
-    for(i = 0; i < 5; i++) {
-        for(j = 0; j < 5; j++) {
-            std::cout << i * 5 + j << " | " << majorColor[i] << " | " << minorColor[i] << "\n";
+
+const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
+int numberOfMajorColors = sizeof(majorColor) / sizeof(majorColor[0]);
+const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
+int numberOfMinorColors = sizeof(minorColor) / sizeof(minorColor[0]);
+int  totalColorPair = numberOfMajorColors * numberOfMinorColors;
+
+int MaxLengthOfColor(const std::string colorList[]){
+    int lengthOfColor = 0;
+    for(size_t i = 0; i < 5; i++)
+        if(lengthOfColor < colorList[i].length())
+            lengthOfColor = colorList[i].length();
+    return lengthOfColor;
+}
+
+std::string addPaddingForPrint(const std::string& colour, const int length){
+    std::string PrintColorString = colour;
+    int colourStringLength = colour.size();
+    int padding = length - colourStringLength;
+    for(size_t i = 0; i <= padding; i++){
+        PrintColorString += " ";
+    }
+    PrintColorString += "| ";
+    return PrintColorString;
+}
+
+void printColorMap() {
+
+    for(int majorColorIndex = 0; majorColorIndex < numberOfMajorColors; majorColorIndex++) {
+        for(int minorColorIndex = 0; minorColorIndex < numberOfMinorColors; minorColorIndex++) {
+            std::cout << addPaddingForPrint(std::to_string((majorColorIndex * 5 + minorColorIndex) + 1), std::to_string(totalColorPair).size())
+                      << addPaddingForPrint(majorColor[majorColorIndex], MaxLengthOfColor(majorColor))
+                      << minorColor[minorColorIndex] << "\n";
         }
     }
-    return i * j;
 }
 
 int main() {
-    int result = printColorMap();
-    assert(result == 25);
+    printColorMap();
     std::cout << "All is well (maybe!)\n";
     return 0;
 }
