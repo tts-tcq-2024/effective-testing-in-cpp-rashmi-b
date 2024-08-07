@@ -8,11 +8,11 @@ const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 int numberOfMinorColors = sizeof(minorColor) / sizeof(minorColor[0]);
 int  totalColorPair = numberOfMajorColors * numberOfMinorColors;
 
-int MaxLengthOfColor(const std::string colorList[]){
+int MaxLengthOfColor(const char* colorList[]){
     int lengthOfColor = 0;
-    for(size_t i = 0; i < 5; i++)
-        if(lengthOfColor < colorList[i].size())
-            lengthOfColor = colorList[i].size();
+    for(int i = 0; i < 5; i++)
+        if(lengthOfColor < sizeof(colorList[i]))
+            lengthOfColor = sizeof(colorList[i]);
     return lengthOfColor;
 }
 
