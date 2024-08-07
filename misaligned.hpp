@@ -3,8 +3,7 @@
 
 #include <iostream>
 
-int MaxLengthOfColor(std::string majorColor[], std::string minorColor[]);
-int MaxLengthOfColor(const std::string colorList[]);
+int MaxLengthOfColor(const char* colorList[]);
 std::string addPaddingForPrint(const std::string& colour, const int length);
 void printColorMap();
 

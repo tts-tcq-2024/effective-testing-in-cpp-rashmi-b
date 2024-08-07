@@ -8,7 +8,18 @@ int networkAlertStub(float celcius) {
     // Return 200 for ok
     // Return 500 for not-ok
     // stub always succeeds and returns 200
-    return 200;
+    if(celcius <= 200)
+    {
+        return 200;
+    }
+    else {
+        return 500;
+    }
+}
+
+float farenheitTOcelcius(float farenheit)
+{
+    return (farenheit - 32) * 5 / 9;
 }
 
 void alertInCelcius(float farenheit) {
@@ -26,6 +37,10 @@ void alertInCelcius(float farenheit) {
 int main() {
     alertInCelcius(400.5);
     alertInCelcius(303.6);
+    assert(alertFailureCount == 1);
+    assert(networkAlertStub(farenheitTOcelcius(400.5)) == 500);
+    assert(networkAlertStub(farenheitTOcelcius(303.6)) == 200);
+    // assert(alertFailureCount == 2);
     std::cout << alertFailureCount << " alerts failed.\n";
     std::cout << "All is well (maybe!)\n";
     return 0;
