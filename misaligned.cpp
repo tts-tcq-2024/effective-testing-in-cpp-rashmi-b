@@ -11,8 +11,8 @@ int  totalColorPair = numberOfMajorColors * numberOfMinorColors;
 int MaxLengthOfColor(const char* colorList[]){
     int lengthOfColor = 0;
     for(int i = 0; i < 5; i++)
-        if(lengthOfColor < sizeof(colorList[i]))
-            lengthOfColor = sizeof(colorList[i]);
+        if(lengthOfColor < (int)sizeof(colorList[i]))
+            lengthOfColor = (int)sizeof(colorList[i]);
     return lengthOfColor;
 }
 
@@ -28,7 +28,6 @@ std::string addPaddingForPrint(const std::string& colour, const int length){
 }
 
 void printColorMap() {
-
     for(int majorColorIndex = 0; majorColorIndex < numberOfMajorColors; majorColorIndex++) {
         for(int minorColorIndex = 0; minorColorIndex < numberOfMinorColors; minorColorIndex++) {
             std::cout << addPaddingForPrint(std::to_string((majorColorIndex * 5 + minorColorIndex) + 1), std::to_string(totalColorPair).size())
