@@ -41,7 +41,7 @@ void printColorMap() {
 int main() {
     printColorMap();
     assert(PrintColorString.size() == 8);
-    assert(PrintColorString[-2] = '|');
+    assert(MaxLengthOfColor(majorColor) == 7);
     std::cout << "All is well (maybe!)\n";
     return 0;
 }
