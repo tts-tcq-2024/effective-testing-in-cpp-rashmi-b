@@ -2,11 +2,9 @@
 #include <gtest/gtest.h>
 
 //Fake Dependency
-int networkAlertStub(float celcius) {
-    //std::cout << "ALERT: Temperature is " << celcius << " celcius.\n";
-    // Return 200 for ok
-    // Return 500 for not-ok
-    // stub always succeeds and returns 200
+float celciusArgValue;
+int networkAlertMock(float celcius) {
+    celciusArgValue=celcius;
     if(celcius <= 200)
     {
         return 200;
@@ -17,8 +15,10 @@ int networkAlertStub(float celcius) {
 }
 
 TEST(Suite,TestCaseName){
-
-alertInCelcius(400.5,&networkAlertStub);
+float expectedCelciusToBeReceived=204.72222;
+alertInCelcius(400.5,&networkAlertMock);
     //state based Testing
     ASSERT_EQ(alertFailureCount==1);//bug detected
+    EXPECT_EQ(celciusArgValue,expectedCelciusToBeNotified) ; //Behavior Testing
+    
 }
