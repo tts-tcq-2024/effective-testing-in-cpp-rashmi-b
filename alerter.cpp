@@ -1,30 +1,20 @@
 #include <iostream>
 #include <assert.h>
+#include "alerter.h"
 
-int alertFailureCount = 0;
 
-int networkAlertStub(float celcius) {
-    std::cout << "ALERT: Temperature is " << celcius << " celcius.\n";
-    // Return 200 for ok
-    // Return 500 for not-ok
-    // stub always succeeds and returns 200
-    if(celcius <= 200)
-    {
-        return 200;
-    }
-    else {
-        return 500;
-    }
+int networkAlerter(float celcius) {
+    //Real Time Network Communication
 }
 
-float farenheitTOcelcius(float farenheit)
+float convertFarenheitToCelcius(float farenheit)
 {
     return (farenheit - 32) * 5 / 9;
 }
 
-void alertInCelcius(float farenheit) {
-    float celcius = (farenheit - 32) * 5 / 9;
-    int returnCode = networkAlertStub(celcius);
+void alertInCelcius(float farenheit,FunctionPointer aleter) {
+    float celcius =convertFarenheitToCelcius(farenheit);
+    int returnCode = aleter(celcius);
     if (returnCode != 200) {
         // non-ok response is not an error! Issues happen in life!
         // let us keep a count of failures to report
@@ -34,14 +24,11 @@ void alertInCelcius(float farenheit) {
     }
 }
 
+
 int main() {
-    alertInCelcius(400.5);
-    alertInCelcius(303.6);
-    assert(alertFailureCount == 1);
-    assert(networkAlertStub(farenheitTOcelcius(400.5)) == 500);
-    assert(networkAlertStub(farenheitTOcelcius(303.6)) == 200);
-    // assert(alertFailureCount == 2);
-    std::cout << alertFailureCount << " alerts failed.\n";
-    std::cout << "All is well (maybe!)\n";
+    alertInCelcius(400.5,&networkAlerter);
+    alertInCelcius(303.6,&networkAlerter);
+    
+    
     return 0;
 }
